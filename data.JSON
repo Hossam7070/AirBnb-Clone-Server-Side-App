@@ -1,0 +1,30 @@
+
+[{
+    "title":"new prop ",
+    "description":" description of this property",
+    "long":51515,
+    "lat":25550,
+    "country":"Egypt",
+    "city":"Alexandria",
+    "address":"address 5454 st ",
+    "pricePN":20,
+    "avgRating":4.5,
+    "nRatings":13,
+    "owner":"userID",
+    "imageCover":"default.jpg",
+    "images":[
+        "default1.jpg" , "default2.jpg" , "default3.jpg"
+    ],
+    "amienties":[
+        "wifi" , "jakoozy" ,"trabezet ping"
+    ],
+    "properties":[
+        "balcony","2bedroms"
+    ]
+},
+
+
+{"photo":"photo.jpg" ,"firstName":"hossam" ,"lastName":"Ramadan","city":"Egypt","postalCode":"20144","address":"51st alex","about":"rhis is the about section","password":"123456789","email":"hahaha22@gmail.com","username":"hosammhmd22"}
+,{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMjA5ZjM0YmU1NjQ2NTU0MWRiZDE0ZCIsImlhdCI6MTY0NjMwNTUzM30.B1m_vpx5sCnM6Zq5JaV6oAAWRgtxsBt0_lvXoEtADTg"
+}]
