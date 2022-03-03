@@ -9,12 +9,14 @@ const asyncTokenSign = util.promisify(jwt.sign);
 
 
 exports.protect = async (req, res, next) => {
-    const { Authorization } = req.headers;
+    const { authorization } = req.headers;
+    
     try {
-        const payload = await asyncTokenVerification(Authorization, process.env.SECRET_KEY);
-        console.log(payload);
+        const payload = await asyncTokenVerification(authorization, process.env.SECRET_KEY);
+        
         const user = await User.findById(payload.id)
         req.user = user;
+        
         
     } catch (error) {
         error.message = "unauthorized";

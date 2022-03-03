@@ -12,17 +12,17 @@ exports.createNewProperty = async (req, res, next) => {
         pricePN,
         avgRating,
         nRatings,
-        owner,
         imageCover,
         images,
         amienties,
         properties,
     } = req.body;
+    const owner = req.user.id ;
     try {
         const property = new Property({
             title,
             description,
-            location: [
+            location: 
                 {
                     country,
                     city,
@@ -30,11 +30,11 @@ exports.createNewProperty = async (req, res, next) => {
                     long,
                     lat,
                 },
-            ],
+            
+            owner,
             pricePN,
             avgRating,
             nRatings,
-            owner,
             imageCover,
             images,
             amienties,

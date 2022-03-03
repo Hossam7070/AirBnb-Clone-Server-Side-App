@@ -11,13 +11,13 @@ const PropertySchema = new mongoose.Schema({
         type:String,
         required : [true,'please provide proprty description']
     },
-    location:[{ 
+    location:{ 
         long:String,
         lat:String,
         country:String,
         city:String,
         address:String,
-    }],
+    },
     pricePN:{
         type:Number,
         required: [true,'please provide price per night']

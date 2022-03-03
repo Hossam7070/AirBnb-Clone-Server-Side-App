@@ -13,8 +13,18 @@ router
     auth.login
 )
 
+router
+.route('/my-prop')
+.post(
+    auth.protect,
+    userCtl.findMyProperties
+)
 
-
-
+router
+.route('/')
+.get(
+    auth.protect,
+    userCtl.getMyDetails
+)
 
 module.exports = router ;

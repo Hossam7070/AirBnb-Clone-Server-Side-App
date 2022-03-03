@@ -10,7 +10,6 @@
     "pricePN":20,
     "avgRating":4.5,
     "nRatings":13,
-    "owner":"userID",
     "imageCover":"default.jpg",
     "images":[
         "default1.jpg" , "default2.jpg" , "default3.jpg"
