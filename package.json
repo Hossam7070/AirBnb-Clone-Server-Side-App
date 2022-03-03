@@ -16,5 +16,14 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.3",
     "validator": "^13.7.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hossam7070/AirBnb-Clone-Server-Side-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hossam7070/AirBnb-Clone-Server-Side-App/issues"
+  },
+  "homepage": "https://github.com/Hossam7070/AirBnb-Clone-Server-Side-App#readme"
 }
