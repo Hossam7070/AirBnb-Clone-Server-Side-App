@@ -30,7 +30,7 @@ const PropertySchema = new mongoose.Schema({
         type:Number,
         default:0
     },
-    imagesUrl:Array,
+   
     owner:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", // 
