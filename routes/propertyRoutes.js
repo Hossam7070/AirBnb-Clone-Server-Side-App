@@ -11,5 +11,7 @@ router
     auth.protect,
     propControll.createNewProperty
     )// API:01 create new property 
-
+.get(
+    propControll.getAllProperties
+)
 module.exports =router;

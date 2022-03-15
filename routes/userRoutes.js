@@ -7,6 +7,7 @@ router
 .route('/sign-up')
 .post(userCtl.registerUser)
 
+
 router
 .route('/login')
 .post(
@@ -14,6 +15,9 @@ router
 )
 
 router
+/**
+ * 
+ */
 .route('/my-prop')
 .post(
     auth.protect,

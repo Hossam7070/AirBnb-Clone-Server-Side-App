@@ -17,20 +17,19 @@ exports.createNewProperty = async (req, res, next) => {
         amienties,
         properties,
     } = req.body;
-    const owner = req.user.id ;
+    const owner = req.user.id;
     try {
         const property = new Property({
             title,
             description,
-            location: 
-                {
-                    country,
-                    city,
-                    address,
-                    long,
-                    lat,
-                },
-            
+            location:
+            {
+                country,
+                city,
+                address,
+                long,
+                lat,
+            },
             owner,
             pricePN,
             avgRating,
@@ -48,5 +47,12 @@ exports.createNewProperty = async (req, res, next) => {
 };
 
 
-
+exports.getAllProperties = async (req, res, next)=>{
+    try {
+    const Props = await Property.find();
+    res.send(Props);
+    } catch (error) {
+        next(error);
+    }
+}
 
