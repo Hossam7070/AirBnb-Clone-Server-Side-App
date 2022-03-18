@@ -10,8 +10,17 @@ router
 .post(
     auth.protect,
     propControll.createNewProperty
-    )// API:01 create new property 
+    )// API:P01 create new property 
 .get(
     propControll.getAllProperties
+    // API:P02 get all properties
+)
+
+router.route('/:id')
+.patch(
+    propControll.editMyProp
+)
+.delete(
+    propControll.deleteMyProp
 )
 module.exports =router;
