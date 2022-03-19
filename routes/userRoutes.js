@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const auth = require('../controllers/authController');
 const userCtl = require('../controllers/userController');
-
+const book = require("../controllers/bookingContoller");
 router
 .route('/sign-up')
 .post(userCtl.registerUser)
@@ -36,5 +36,8 @@ router
     userCtl.getMyDetails
     //API:U04 find my Details
 )
-
+router.route("/host/currunt-bookings/:id")
+.get(
+    book.getMyCurruntBookings
+)
 module.exports = router ;

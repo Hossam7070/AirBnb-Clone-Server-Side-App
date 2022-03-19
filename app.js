@@ -10,11 +10,12 @@ require('dotenv').config();
 
 const propertyRouter = require("./routes/propertyRoutes");
 const userRouter = require("./routes/userRoutes");
+const bookingRouter = require("./routes/bookingRoutes");
 // require('dotenv').config();
 
 app.use("/", propertyRouter);
 app.use('/user',userRouter);
-
+app.use('/book',bookingRouter);
 
 
 
