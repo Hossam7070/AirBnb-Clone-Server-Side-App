@@ -1,77 +1,75 @@
-const Booking = require("../Models/reportModel");
+const Report = require("../Models/reportModel");
 
-exports.createBooking = async (req, res, next) => {
-    const { property, host, guest, checkOut } = req.body;
+exports.createReport = async (req, res, next) => {
+    const { reporter, target, description, type, date } = req.body;
     try {
-        const booking = new Booking({
-            property,
-            host,
-            guest,
-            checkOut,
+        const Report = new Report({
+            reporter,
+            target,
+            description,
+            type, // set by front-end depending on where is it made 
+            date
         });
-        const newBooking = await booking.save();
-        res.json(newBooking);
+        const newReport = await Report.save();
+        res.json(newReport);
     } catch (err) {
         next(err);
     }
 };
-exports.getAllBooknings = async (req, res, next) => {
+//main api
+//for target
+exports.getTReports = async (req, res, next) => {
+    const { type, id } = req.params;
     try {
-        const bookings = await Booking.find();
-        res.send(bookings);
+        const Reports = await Report.find({ type: type }).find({ target: id });
+        res.send(Reports);
     } catch (err) {
         next(err);
     }
 };
-exports.getBookningsByHost = async (req, res, next) => {
+// for reporter  display reporter reports in his page if needed
+exports.getRReports = async (req, res, next) => {
+    const { type, id } = req.params;
+    try {
+        const Reports = await Report.find({ type: type }).find({ reporter: id });
+        res.send(Reports);
+    } catch (err) {
+        next(err);
+    }
+};
+//apis for test
+exports.getAllReports = async (req, res, next) => {
+    try {
+        const Reports = await Report.find();
+        res.send(Reports);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.getReportsByType = async (req, res, next) => {
+    const { type } = req.params;
+    try {
+        const typeReports = await Report.find({ type: type });
+        res.send(typeReports);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.getReportsByReporter = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const myBookings = await Booking.find({ host: id });
-        res.send(myBookings);
+        const reporterReports = await Report.find({ reporter: id });
+        res.send(reporterReports);
     } catch (err) {
         next(err);
     }
 };
-exports.getBookningsByProp = async (req, res, next) => {
+exports.getReportsByTarget = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const myBookings = await Booking.find({ property: id });
+        const reporterReports = await Report.find({ target: id });
+        res.send(reporterReports);
     } catch (err) {
         next(err);
     }
 };
-exports.getMyCurruntBookings = async (req, res, next) => {
-    const { id } = req.params;
-    const now = new Date(Date.now());
-    const today = now.getDate();
-    const tomorrow = new Date();
-    tomorrow.setDate(today + 1)
-    const nextWeek = new Date();
-    nextWeek.setDate(today + 7)
-    console.log(today, tomorrow, nextWeek)
-    try {
-        const data = {}
-        data.todaysBookings = await Booking.find(
-            {
-                host: id, checkOut: { $gte: now }, checkIn: { $lt: now }
-            }
-        );
-        data.tomorrowsBookings = await Booking.find(
-            {
-                host: id, checkOut: { $gte: tomorrow }, checkIn: { $lt: tomorrow }
-            }
-        );
-        data.nextWeekBooking = await Booking.find({
-            host: id, checkOut: { $gte: nextWeek }, checkIn: { $lt: nextWeek }
-        })
-
-
-        res.send(data);
-    } catch (err) {
-        console.log("failed to get book")
-
-        next(err);
-    }
-};
-
-exports.updateBooking = async (req, res, next) => { };

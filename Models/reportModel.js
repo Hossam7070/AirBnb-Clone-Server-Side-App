@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 // { reporterId , targetId , description , type , date } 
 
 const ReportsSchema = new mongoose.Schema({
-    reporterId: {
+    reporter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Reporter"  // host or user
     },
-    targetId: {
+    target: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Target"  //  prop or host or user
     },
