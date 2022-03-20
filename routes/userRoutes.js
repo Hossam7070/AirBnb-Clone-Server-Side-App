@@ -36,8 +36,12 @@ router
     userCtl.getMyDetails
     //API:U04 find my Details
 )
-router.route("/host/currunt-bookings/:id")
+router.route("/host/rate/:id")
 .get(
-    book.getMyCurruntBookings
+    book.occupancyRate
+)
+router.route("/host/data/:id")
+.get(
+    book.getMystats
 )
 module.exports = router ;
