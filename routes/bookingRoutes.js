@@ -3,6 +3,7 @@ const router = express.Router();
 const book = require("../controllers/bookingContoller");
 
 router.route("/")
+
 .post(
     book.handleConflict,
     book.createBooking
@@ -29,6 +30,9 @@ router.route("/list/:id")
     book.getBookningsByProp
 )
 
+router.route('/update-booking/:id')
+    .patch(
+        book.updateBooking
+    )
 
-
-module.exports =router;
+module.exports = router;

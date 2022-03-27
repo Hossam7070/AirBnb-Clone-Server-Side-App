@@ -1,0 +1,63 @@
+message
+
+// create message
+post => "http://localhost:4000/message/"
+//git all messages for specific conversation
+get => "http://localhost:4000/message/:conversationId"
+
+_______________________________________________________
+
+conversation
+
+// create conversation
+post => "http://localhost:4000/conversation/"
+//git all conversations for specific user
+get => "http://localhost:4000/conversation/:userId"
+//git conversation between two users
+get => "http://localhost:4000/conversation/:firstUserId/:secondUserId"
+
+_______________________________________________________
+
+report
+
+// create report
+post => "http://localhost:4000/report/"
+//git all reports 
+get => "http://localhost:4000/report/"
+//main router
+//git a specific type of report for specific target
+get => "http://localhost:4000/report/type/:type/target/:id"
+//git a specific type of report for specific reporter
+get => "http://localhost:4000/report/type/:type/reporter/:id"
+//other routers
+//git all types of reports for specific target
+get => "http://localhost:4000/report/target/:id"
+//git all types of reports for specific reporter
+get => "http://localhost:4000/report/reporter/:id"
+
+_______________________________________________________
+
+booking
+
+// create booking
+post => "http://localhost:4000/booking/"
+//git all bookings
+get => "http://localhost:4000/booking/"
+//git all bookings for specific property
+get => "http://localhost:4000/booking/list/:Id"
+//git all bookings for specific host
+get => "http://localhost:4000/booking/host/:Id"
+//update booking
+patch => "http://localhost:4000/booking/update-booking/:Id"
+
+________________________________________________________
+
+property
+
+_________________________________________________________
+
+user
+
+__________________________________________________________
+
+

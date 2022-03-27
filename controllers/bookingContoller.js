@@ -78,6 +78,8 @@ exports.getBookningsByProp = async (req, res, next) => {
         next(err);
     }
 };
+
+
 exports.getMyCurruntBookings = async (req, res, next) => {
     const { id } = req.params;
     
@@ -179,7 +181,7 @@ exports.getMystats = async (req, res, next) => {
 exports.occupancyRate = async (req, res, next) => {
     const { id } = req.params;
     const stat = [];
-    const stats =[];
+    const stats = [];
     try {
         const hostOc = await Booking.find({ host: id })
             .select("checkIn checkOut")
@@ -198,19 +200,18 @@ exports.occupancyRate = async (req, res, next) => {
                     stats.push({
                         in: status.checkIn,
                         out: status.checkOut,
-                })
+                    })
                 )
             );
         const prop = await Property.find({ owner: id }).count();
-        const props =await Property.find().count();
-        const result =  dataAnalysis.getAnalysis(stat, prop,stats, props)
+        const props = await Property.find().count();
+        const result = dataAnalysis.getAnalysis(stat, prop, stats, props)
 
         res.json(result);
     } catch (e) {
         next(e);
     }
 };
-exports.updateBooking = async (req, res, next) => { };
 
 exports.cancelMyBooking = async (req, res, next) => {
     const {id}= req.params;
@@ -222,3 +223,22 @@ exports.cancelMyBooking = async (req, res, next) => {
         next(e);
     }
  };
+
+exports.updateBooking = async (req, res, next) => {
+    try {
+        let err = new Error("No matching  found");
+        const bookings = await Booking.find();
+        if (!bookings.filter((x) => x.id === req.params.id).length) {
+            err.statusCode = 404;
+            next(new Error(err));
+        }
+        const updated = await Booking.findByIdAndUpdate(req.params.id, {
+            ...req.body,
+        });
+        res.send(updated);
+    } catch (error) {
+        error.statusCode = 500;
+        res.send("error");
+    }
+};
+

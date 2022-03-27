@@ -22,10 +22,13 @@ const BookingSchema = new mongoose.Schema({
     },
     aprroved: {
         type: String,
-        enum:["pending","aprroved","canceled"],
-        default:"pending"
+
+        enum: ['accepted', 'pending', 'canceled'],
+        default: "pending",
+        required: [true, 'You must select the  approved status']
+
     },
-    
+
     checkIn: {
         type: Date,
         default: Date.now()
@@ -38,8 +41,8 @@ const BookingSchema = new mongoose.Schema({
 })
 
 BookingSchema.virtual('duration').get(
-    function(){
-        return this.checkOut - this.checkIn ; 
+    function () {
+        return this.checkOut - this.checkIn;
     }
 )
 
