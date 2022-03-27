@@ -3,35 +3,40 @@ const mongoose = require('mongoose')
 //  imageCover , images ,amienties ,properties }
 // 
 const PropertySchema = new mongoose.Schema({
-    title : {
+    title: {
         type: String
-        ,required : [true,'please provide proprty title']
+        , required: [true, 'please provide proprty title']
     },
-    description:{
-        type:String,
-        required : [true,'please provide proprty description']
+    description: {
+        type: String,
+        required: [true, 'please provide proprty description']
     },
-    location:{ 
-        long:String,
-        lat:String,
-        country:String,
-        city:String,
-        address:String,
+    location: {
+        long: String,
+        lat: String,
+        country: String,
+        city: String,
+        address: String,
     },
-    pricePN:{
-        type:Number,
-        required: [true,'please provide price per night']
+    pricePN: {
+        type: Number,
+        required: [true, 'please provide price per night']
     },
-    avgRating:{
-        type:Number,
-        default:4.5, 
+    avgRating: {
+        type: Number,
+        default: 4.5,
     },
-    nRatings:{
-        type:Number,
-        default:0
+    nRatings: {
+        type: Number,
+        default: 0
     },
-   
-    owner:{
+    priority:{
+        type: Number,
+        max: 100,
+        min: 0,
+        default:50,
+    },
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", // 
     },
@@ -39,13 +44,17 @@ const PropertySchema = new mongoose.Schema({
         type: String,
         required: [true, 'A property must have a cover image']
     },
+    createdAt:{
+        type: Date,
+        default:Date.now()
+    },
     images: [String],
-    amienties:[String],
-    properties:[String]  //for now it will be objId later 
+    amienties: [String],
+    properties: [String]  //for now it will be objId later 
 })
 
 
 
-const Property = mongoose.model('Property',PropertySchema);
+const Property = mongoose.model('Property', PropertySchema);
 module.exports = Property;
 

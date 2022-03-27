@@ -3,37 +3,45 @@ const mongoose = require('mongoose')
 // price { regular , custome , discount } , paymentMethod}
 
 const BookingSchema = new mongoose.Schema({
-    propId: {
+    property: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "prop"
+        ref: "Property"
     },
-    userId: {
+    host: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    duration: {
-        days: Number,
-        startDate: Number
+    guest: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     price: {
         regular: Number,
         custome: Number,
         discount: Number
     },
-    paymentMethod: {
-        type: string,
-        required: [true, 'please provide your payment method']
-
+    aprroved: {
+        type: Boolean,
+        default: false
     },
-    BookingDate: {
-        type: Number,
+    
+    checkIn: {
+        type: Date,
         default: Date.now()
-    }
+    },
+    checkOut: {
+        type: Date,
+        required: [true, 'please provide check out date']
+    },
 
 })
 
+BookingSchema.virtual('duration').get(
+    function(){
+        return this.checkOut - this.checkIn ; 
+    }
+)
 
 
 const Booking = mongoose.model('Booking', BookingSchema);
 module.exports = Booking;
-
