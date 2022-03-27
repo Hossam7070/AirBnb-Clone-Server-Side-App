@@ -39,8 +39,18 @@ _______________________________________________________
 
 booking
 
-// create booking
-post => "http://localhost:4000/booking/"
+http://localhost:4000/booking
+method :post 
+desc: create reservation 
+req: req.body ={
+            property:id
+            host:id
+            guest:id
+	checkIn:date
+            checkOut,date
+        }
+res : booking
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //git all bookings
 get => "http://localhost:4000/booking/"
 //git all bookings for specific property
@@ -49,15 +59,61 @@ get => "http://localhost:4000/booking/list/:Id"
 get => "http://localhost:4000/booking/host/:Id"
 //update booking
 patch => "http://localhost:4000/booking/update-booking/:Id"
-
-________________________________________________________
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
+http://localhost:4000/booking/id
+method : get 
+desc : aprrove booking 
+req : req.params = booking id 
+method : post 
+desc : cancel booking 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>________________________________________________________
 
 property
 
-_________________________________________________________
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+http://localhost:4000/upload/:id
+method : patch
+desc : upload listing imageCover and images
+req:req.params.id = listing id , req.file = {imageCover:onephoto , images : [max 7 ] 
+res : listing
+download path :  http://localhost:4000/puplic/img/listing/filename___________________________________________
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+http://localhost:4000/
+post > create new property
+req : req.headers = {autherization : token }, req.body = propety 
 
+'/:id
+patch edit  prop
+delete delete  prop 
 user
+http://localhost:4000/user/update-user/:id
+method : patch 
+desc : upload user photo 
+req : req.params = user id ,form-data =>  req.file.photo = uploaded photo 
+res : status , user
+download path :  http://localhost:4000/puplic/img/users/filename
+
+
+
+user sign up : http://localhost:4000/sign-up
+post > create new user
+
+
+user sign in : http://localhost:4000/login
+post > login user and get user token
+res : {token} 
+
+user data : http://localhost:4000/
+get > req.headers : { autherization : token }
+get user details 
+
+user listings :  http://localhost:4000/my-prop
+post > req.headers : { autherization : token }
+get user listings
+
+dashboard : 
 
 __________________________________________________________
+
 
 
