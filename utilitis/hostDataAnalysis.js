@@ -1,14 +1,6 @@
-
-const Booking = require("../Models/bookingModel");
-const Property = require("../Models/propertyModel");
-const isToday = require("date-fns/isToday");
-var isWithinInterval = require("date-fns/isWithinInterval");
+const isWithinInterval = require("date-fns/isWithinInterval");
 const startOfToday = require("date-fns/startOfToday");
-var addWeeks = require("date-fns/addWeeks");
-const isTomorrow = require("date-fns/isTomorrow");
-var startOfTomorrow = require("date-fns/startOfTomorrow");
-var subDays = require("date-fns/subDays");
-var addDays = require("date-fns/addDays");
+const subDays = require("date-fns/subDays");
 const today = startOfToday();
 
 const occHndler = (date, arr, prp) => {

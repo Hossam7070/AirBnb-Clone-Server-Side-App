@@ -9,6 +9,7 @@ router
 .route('/')
 .post(
     auth.protect,
+    propControll.uploadTourImages,
     propControll.createNewProperty
     )// API:P01 create new property 
 .get(

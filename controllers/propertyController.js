@@ -1,5 +1,26 @@
 const Property = require("../Models/propertyModel");
+const multer = require('multer');
+const FilterSortlimit = require("../utilitis/FSLP");
 
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new Error('Not an image! Please upload only images.', 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter
+});
+
+exports.uploadTourImages = upload.fields([
+  { name: 'imageCover', maxCount: 1 },
+  { name: 'images', maxCount: 7 }
+]);
 exports.createNewProperty = async (req, res, next) => {
     const {
         title,
@@ -107,3 +128,26 @@ exports.deleteMyProp = async (req, res, next) => {
         next(error);
     }
 };
+exports.getAll = listing =>
+  catchAsync(async (req, res, next) => {
+    
+    let filter = {};
+    
+
+    const features = new FilterSortlimit(listing.find(filter), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    // const doc = await features.query.explain();
+    const doc = await features.query;
+
+    // SEND RESPONSE
+    res.status(200).json({
+      status: 'success',
+      results: doc.length,
+      data: {
+        data: doc
+      }
+    });
+  });

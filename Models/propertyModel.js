@@ -44,6 +44,10 @@ const PropertySchema = new mongoose.Schema({
         type: String,
         required: [true, 'A property must have a cover image']
     },
+    createdAt:{
+        type: Date,
+        default:Date.now()
+    },
     images: [String],
     amienties: [String],
     properties: [String]  //for now it will be objId later 
