@@ -9,9 +9,25 @@ router
 .route('/')
 .post(
     auth.protect,
+    
     propControll.createNewProperty
-    )// API:01 create new property 
+    )// API:P01 create new property
+router.route('/upload/:id')
+.patch(
+    propControll.uploadListImages,
+    propControll.resizePropImages,
+    propControll.editMyProp
+)
 .get(
     propControll.getAllProperties
+    // API:P02 get all properties
+)
+
+router.route('/:id')
+.patch(
+    propControll.editMyProp
+)
+.delete(
+    propControll.deleteMyProp
 )
 module.exports =router;

@@ -30,7 +30,12 @@ const PropertySchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-
+    priority:{
+        type: Number,
+        max: 100,
+        min: 0,
+        default:50,
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", // 
@@ -38,6 +43,10 @@ const PropertySchema = new mongoose.Schema({
     imageCover: {
         type: String,
         required: [true, 'A property must have a cover image']
+    },
+    createdAt:{
+        type: Date,
+        default:Date.now()
     },
     images: [String],
     amienties: [String],
