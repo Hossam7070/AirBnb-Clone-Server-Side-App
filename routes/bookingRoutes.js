@@ -10,6 +10,13 @@ router.route("/")
 .get(
     book.getAllBooknings
 )
+router.route('/:id')
+.get(
+    book.approveRequest
+)
+.post(
+    book.cancelMyBooking
+)
 router.route("/host/:id")
 .get(
     book.getMyCurruntBookings
@@ -21,11 +28,7 @@ router.route("/list/:id")
 .get(
     book.getBookningsByProp
 )
-.patch(
-    book.approveRequest
-)
-.post(
-    book.cancelMyBooking
-)
+
+
 
 module.exports =router;

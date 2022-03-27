@@ -44,6 +44,7 @@ exports.createBooking = async (req, res, next) => {
             host,
             guest,
             checkOut,
+            checkIn
         });
         const newBooking = await booking.save();
         res.json(newBooking);
@@ -72,6 +73,7 @@ exports.getBookningsByProp = async (req, res, next) => {
     const { id } = req.params;
     try {
         const myBookings = await Booking.find({ property: id });
+        res.send(myBookings);
     } catch (err) {
         next(err);
     }
@@ -94,8 +96,8 @@ exports.getMyCurruntBookings = async (req, res, next) => {
 exports.approveRequest= async (req, res, next) => {
     try{
         const { id } = req.params;
-        const {list} = req.params;
-        const update = await Booking.findByIdAndUpdate(list,{
+        
+        const update = await Booking.findByIdAndUpdate(id,{
             approved:"accepted"
         })
         res.send(update);
