@@ -10,15 +10,23 @@ require('dotenv').config();
 
 const propertyRouter = require("./routes/propertyRoutes");
 const userRouter = require("./routes/userRoutes");
+const reportRouter = require("./routes/reportRoutes");
+const conversationRouter = require("./routes/conversationsRoutes");
+const messageRouter = require("./routes/messagesRoutes");
+
 // require('dotenv').config();
 
 app.use("/", propertyRouter);
-app.use('/user',userRouter);
+app.use('/user', userRouter);
+app.use('/report', reportRouter);
+app.use('/message', messageRouter);
+app.use('/conversation', conversationRouter);
 
 
 
 
-const uri = process.env.DBURI ;
+
+const uri = process.env.DBURI;
 // console.log(uri);
 mongoose.connect(uri, (err) => {
   if (err) process.exit(1);
@@ -45,6 +53,6 @@ app.use((err, req, res, next) => {
 
 
 
-//fake api get all hosts properties 
+//fake api get all hosts properties
 
 //this user details 
