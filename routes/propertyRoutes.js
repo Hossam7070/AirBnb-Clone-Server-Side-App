@@ -9,9 +9,15 @@ router
 .route('/')
 .post(
     auth.protect,
-    propControll.uploadTourImages,
+    
     propControll.createNewProperty
-    )// API:P01 create new property 
+    )// API:P01 create new property
+router.route('/upload/:id')
+.patch(
+    propControll.uploadListImages,
+    propControll.resizePropImages,
+    propControll.editMyProp
+)
 .get(
     propControll.getAllProperties
     // API:P02 get all properties

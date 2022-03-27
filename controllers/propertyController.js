@@ -1,14 +1,14 @@
 const Property = require("../Models/propertyModel");
 const multer = require('multer');
 const FilterSortlimit = require("../utilitis/FSLP");
-
+const sharp = require('sharp');
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb(new Error('Not an image! Please upload only images.', 400), false);
+    cb(new Error('Not an image! Please upload only images'));
   }
 };
 
@@ -17,10 +17,48 @@ const upload = multer({
   fileFilter: multerFilter
 });
 
-exports.uploadTourImages = upload.fields([
+exports.uploadListImages = upload.fields([
   { name: 'imageCover', maxCount: 1 },
   { name: 'images', maxCount: 7 }
 ]);
+exports.resizePropImages = async (req, res, next) => {
+  if (!req.files.imageCover || !req.files.images) return next();
+
+  // 1) Cover image
+  req.body.imageCover = `listing-${req.params.id}-${Date.now()}-cover.jpeg`;
+  try{
+  await sharp(req.files.imageCover[0].buffer)
+    .resize(2000, 1333)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/listing/${req.body.imageCover}`);
+
+  // 2) Images
+  req.body.images = [];
+
+  await Promise.all(
+    req.files.images.map(async (file, i) => {
+      const filename = `listing-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+
+      await sharp(file.buffer)
+        .resize(2000, 1333)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/img/listing/${filename}`);
+
+      req.body.images.push(filename);
+
+      const updated = await Property.findByIdAndUpdate(req.params.id,{imageCover:req.body.imageCover,images:req.body.images});
+    })
+  );
+
+  next();
+  }catch(err) {
+    next(err);
+  }
+};
+
+
 exports.createNewProperty = async (req, res, next) => {
     const {
         title,
@@ -33,8 +71,6 @@ exports.createNewProperty = async (req, res, next) => {
         pricePN,
         avgRating,
         nRatings,
-        imageCover,
-        images,
         amienties,
         properties,
     } = req.body;
@@ -54,8 +90,6 @@ exports.createNewProperty = async (req, res, next) => {
             pricePN,
             avgRating,
             nRatings,
-            imageCover,
-            images,
             amienties,
             properties,
         });
