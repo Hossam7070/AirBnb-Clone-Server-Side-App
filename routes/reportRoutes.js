@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const report = require("../controllers/reportController");
 
-router.route("/")
+router
+    .route("/")
     .post(
         report.createReport
     )
@@ -11,26 +12,27 @@ router.route("/")
         report.getAllReports
     )
 //main router
-router.route("/report/type/:type/target/:id")
+router
+    .route("/report/type/:type/target/:id")
     .get(
         report.getTReports
     )
-router.route("/report/type/:type/reporter/:id")
+router
+    .route("/report/type/:type/reporter/:id")
     .get(
         report.getRReports
     )
 // test routers
-router.route("/target/:id")
+router
+    .route("/target/:id")
     .get(
-        report.getBookningsByProp
+        report.getReportsByTarget
     )
-router.route("/reporter/:id")
+router
+    .route("/reporter/:id")
     .get(
-        report.getBookningsByProp
+        report.getReportsByReporter
     )
-router.route("/type/:type")
-    .get(
-        report.getBookningsByProp
-    )
+
 
 module.exports = router;

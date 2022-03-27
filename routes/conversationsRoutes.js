@@ -13,7 +13,7 @@ router.route("/")
 //git all conversations for specific user
 router.route("/:userId")
   .get(
-    conversation.getMessages
+    conversation.getConversation
   )
 
 //git conversation between two users
