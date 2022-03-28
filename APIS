@@ -95,19 +95,19 @@ download path :  http://localhost:4000/puplic/img/users/filename
 
 
 
-user sign up : http://localhost:4000/sign-up
+user sign up : http://localhost:4000/user/sign-up
 post > create new user
 
 
-user sign in : http://localhost:4000/login
+user sign in : http://localhost:4000/user/login
 post > login user and get user token
 res : {token} 
 
-user data : http://localhost:4000/
+user data : http://localhost:4000/user
 get > req.headers : { autherization : token }
 get user details 
 
-user listings :  http://localhost:4000/my-prop
+user listings :  http://localhost:4000/user/my-prop
 post > req.headers : { autherization : token }
 get user listings
 

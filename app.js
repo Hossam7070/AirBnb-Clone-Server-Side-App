@@ -3,9 +3,17 @@ const app = express();
 const mongoose = require("mongoose");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const port = 4000;
 const cors = require("cors");
 app.use(cors());
+const path = require('path');
+
+app.use(express.static(__dirname + '/public'));
+
+const bodyParser = require('body-parser');
+
+
+const port = 4000;
+
 require('dotenv').config();
 
 const propertyRouter = require("./routes/propertyRoutes");
