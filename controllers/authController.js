@@ -44,7 +44,7 @@ exports.login = async (req,res,next)=>{
         },
         process.env.SECRET_KEY);
         
-    res.send({token});
+    res.json({token,user});
     } 
     catch (error) {
         console.log(error);

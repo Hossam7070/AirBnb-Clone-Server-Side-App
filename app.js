@@ -15,9 +15,9 @@ const bodyParser = require('body-parser');
 const port = 4000;
 
 require('dotenv').config();
-
-const propertyRouter = require("./routes/propertyRoutes");
 const userRouter = require("./routes/userRoutes");
+const propertyRouter = require("./routes/propertyRoutes");
+
 
 const reportRouter = require("./routes/reportRoutes");
 const conversationRouter = require("./routes/conversationsRoutes");
@@ -26,12 +26,12 @@ const bookingRouter = require("./routes/bookingRoutes");
 
 // require('dotenv').config();
 
-
+app.use('/user', userRouter);
 app.use("/", propertyRouter);
 
-app.use("/property", propertyRouter);
 
-app.use('/user', userRouter);
+
+
 app.use('/report', reportRouter);
 app.use('/message', messageRouter);
 app.use('/conversation', conversationRouter);

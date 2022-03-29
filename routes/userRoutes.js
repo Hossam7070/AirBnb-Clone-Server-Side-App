@@ -43,6 +43,10 @@ router
     userCtl.getMyDetails
     //API:U04 find my Details
 )
+.patch(
+    auth.protect,
+    userCtl.updateUser
+)
 router.route("/host/rate/:id")
 .get(
     book.occupancyRate
