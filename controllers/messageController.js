@@ -3,11 +3,12 @@ const Message = require("../Models/messageModel");
 
 //add
 exports.createMessage = async (req, res, next) => {
-  const newMessage = new Message(req.body);
+  const { conversationId, sender, text } = req.body;
+  const newMessage = new Message({ conversationId, sender, text });
 
   try {
     const savedMessage = await newMessage.save();
-    res.json(savedMessage);
+    res.send(savedMessage);
   } catch (err) {
     next(err);
   }
@@ -20,7 +21,7 @@ exports.getMessages = async (req, res, next) => {
     const messages = await Message.find({
       conversationId: req.params.conversationId,
     });
-    res.json(messages);
+    res.send(messages);
   } catch (err) {
     next(err);
   }

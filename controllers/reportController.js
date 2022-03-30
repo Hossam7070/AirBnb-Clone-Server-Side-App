@@ -11,7 +11,7 @@ exports.createReport = async (req, res, next) => {
             date
         });
         const newReport = await Report.save();
-        res.json(newReport);
+        res.send(newReport);
     } catch (err) {
         next(err);
     }

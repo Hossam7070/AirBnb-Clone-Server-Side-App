@@ -24,12 +24,14 @@ const conversationRouter = require("./routes/conversationsRoutes");
 const messageRouter = require("./routes/messagesRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
 
-// require('dotenv').config();
+//new
+const messagesRouter = require("./routes/messagessRoutes");
+const reviewRouter = require("./routes/reviewRoutes");
+
+
 
 
 app.use("/", propertyRouter);
-
-app.use("/property", propertyRouter);
 
 app.use('/user', userRouter);
 app.use('/report', reportRouter);
@@ -37,6 +39,9 @@ app.use('/message', messageRouter);
 app.use('/conversation', conversationRouter);
 app.use('/booking', bookingRouter);
 
+//new
+app.use('/messages', messagesRouter);
+app.use('/review', reviewRouter);
 
 
 
