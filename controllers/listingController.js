@@ -87,8 +87,8 @@ exports.editListing = async (req, res, next) => {
             property_type,
         })
         const result = await Listing.findById(id)
-        const data = {fields:{result}};
-        res.send(updated)
+        const data = {fields:{updated}};
+        res.send(result)
   } catch (err) {
     next(err);
   }
@@ -124,7 +124,7 @@ exports.getListingById = async (req, res, next) => {
   try {
       const listing = await Listing.findById(id);
       const data = {fields:{listing}};
-      res.send(data);
+      res.send(listing);
   } catch (err) {
     next(err);
   }
