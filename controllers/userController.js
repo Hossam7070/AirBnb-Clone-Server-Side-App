@@ -133,6 +133,41 @@ exports.registerUser = async (req, res, next) => {
       role,
     });
     const newUser = await user.save();
+    
+    res.send(newUser);
+  } catch (error) {
+    error.statusCode = 500;
+    next(error);
+  }
+};
+exports.registerUser = async (req, res, next) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      city,
+      postalCode,
+      address,
+      about,
+      password,
+      email,
+      username,
+      role,
+    } = req.body;
+    const user = new User({
+      firstName,
+      lastName,
+      city,
+      postalCode,
+      address,
+      about,
+      password,
+      email,
+      username,
+      role,
+    });
+    const newUser = await user.save();
+
     res.send(newUser);
   } catch (error) {
     error.statusCode = 500;

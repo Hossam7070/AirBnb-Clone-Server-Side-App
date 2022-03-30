@@ -7,6 +7,9 @@ router
 .route('/sign-up')
 .post(userCtl.registerUser)
  //API:U02 Register user 
+ router.route('/sign-up-login')
+.post(auth.registerAndLoginUser)
+ //API:U02 Register user 
 router
 .route('/update-user/:id')
 .patch(
