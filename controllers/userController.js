@@ -74,7 +74,7 @@ exports.updateMe = async (req, res, next) => {
   }
 };
 exports.updateUser = async (req, res, next) => {
-console.log(req.user._id)
+  console.log(req.user._id)
 
   const {
     firstName,
@@ -134,7 +134,7 @@ exports.registerUser = async (req, res, next) => {
       role,
     });
     const newUser = await user.save();
-    
+
     res.send(newUser);
   } catch (error) {
     error.statusCode = 500;
@@ -196,6 +196,21 @@ exports.getMyDetails = async (req, res, next) => {
   } catch (error) {
     error.statusCode = 500;
     next(error);
+  }
+};
+
+exports.getdatabyid = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const userDate = await User.findById(id);
+    const data = {
+      username: userDate.username,
+      city: userDate.city,
+      photo: userDate.photo
+    }
+    res.send(data);
+  } catch (err) {
+    next(err);
   }
 };
 
