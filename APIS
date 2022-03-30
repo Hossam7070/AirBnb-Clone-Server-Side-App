@@ -174,7 +174,7 @@ __________________________________________________________
 listing:=>>>>>
  http://localhost:4000/list
 
- post => "http://localhost:4000/list" req.headers= token }
+ post => "http://localhost:4000/list/new/:id" id of host }
  ex :req.body= {
      "name":"country side house",
         "city":"london",

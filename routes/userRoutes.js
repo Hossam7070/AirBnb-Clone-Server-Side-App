@@ -58,5 +58,8 @@ router.route("/host/data/:id")
 .get(
     book.getMystats
 )
-
+router.route('/host-data/:id').get(
+    book.getBookningsByHostSumm
+)
 module.exports = router ;
+

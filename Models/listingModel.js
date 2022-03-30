@@ -50,6 +50,7 @@ const listingSchema = new mongoose.Schema({
     property_type:{
         type: String
     }
+    
 
 })
 module.exports = mongoose.model("Listing", listingSchema);

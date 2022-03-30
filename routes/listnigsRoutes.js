@@ -17,6 +17,11 @@ router.route('/:id').patch(
 ).delete(
     listCtrl.deleteListing
 )
+
+router.route('/new/:id')
+.post(
+    listCtrl.createListing
+)
 router.route('/host/:id').get(
     listCtrl.getListingsByhost
 )
