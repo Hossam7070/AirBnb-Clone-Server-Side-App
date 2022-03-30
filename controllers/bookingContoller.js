@@ -12,6 +12,8 @@ var addDays = require("date-fns/addDays");
 var parseISO = require('date-fns/parseISO')
 const dataAnalysis = require("../utilitis/hostDataAnalysis")
 var areIntervalsOverlapping = require('date-fns/areIntervalsOverlapping')
+var intervalToDuration = require('date-fns/intervalToDuration')
+
 exports.handleConflict = async (req, res, next) => {
     const { checkOut,checkIn, property } = req.body
     
@@ -67,6 +69,46 @@ exports.getBookningsByHost = async (req, res, next) => {
     try {
         const myBookings = await Booking.find({ host: id });
         res.send(myBookings);
+    } catch (err) {
+        next(err);
+    }
+};
+exports.getBookningsByHostSumm = async (req, res, next) => {
+    const { id } = req.params;
+    const ins =[];
+    
+    const today = startOfToday();
+    try {
+        const stats = await Booking.find({ host: id })
+            .select("checkIn checkOut property")
+            .then((result) =>
+                result.forEach(
+                    (status) =>
+                        ins.push({in:status.checkIn,out:status.checkOut})
+                        
+                )
+            );
+                     const monthlyBookings= ins.filter(el=>
+                        isWithinInterval(today,{ start:el.in, end:addDays(today,30) })
+                    ).length
+                        let earnings = 0 ;
+                        const earningsMap= ins.map(el=>{
+                         earnings = earnings + intervalToDuration({
+                                start: new Date(el.in),
+                                end: new Date(el.out)
+                              }).days*120
+                        })
+console.log(earnings);
+const data = [{
+    "Earnings in August":earnings,
+     "Overall rating": 4.5 ,
+
+    "30-days bookings":monthlyBookings,
+    "30-day views" :  8
+}]
+
+                    res.json(data);
+    
     } catch (err) {
         next(err);
     }

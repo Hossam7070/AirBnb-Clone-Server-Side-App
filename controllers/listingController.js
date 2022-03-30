@@ -1,7 +1,7 @@
 const Listing = require('../Models/listingModel')
 
 exports.createListing = async (req, res, next) => {
-    const host = req.user._id
+    const {id} = req.params
     const {
         name,
         city,
@@ -37,7 +37,7 @@ exports.createListing = async (req, res, next) => {
     guests_included,
     description,
     geo_location,
-    host,
+    host:id,
     property_type
   })
   const newList = await listing.save();
