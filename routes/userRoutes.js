@@ -61,9 +61,9 @@ router.route("/host/data/:id")
 router.route('/host-data/:id').get(
     book.getBookningsByHostSumm
 )
-router.route('/getdatabyid/:id')
-    .get(
-        userCtl.getdatabyid
-    )
+// router.route('/getdatabyid/:id')
+//     .get(
+//         userCtl.getdatabyid
+//     )
 module.exports = router;
 

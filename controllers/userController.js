@@ -199,18 +199,18 @@ exports.getMyDetails = async (req, res, next) => {
   }
 };
 
-exports.getdatabyid = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const userDate = await User.findById(id);
-    const data = {
-      username: userDate.username,
-      city: userDate.city,
-      photo: userDate.photo
-    }
-    res.send(data);
-  } catch (err) {
-    next(err);
-  }
-};
+// exports.getdatabyid = async (req, res, next) => {
+//   const { id } = req.params;
+//   try {
+//     const userDate = await User.findById(id);
+//     const data = {
+//       username: userDate.username,
+//       city: userDate.city,
+//       photo: userDate.photo
+//     }
+//     res.send(data);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
