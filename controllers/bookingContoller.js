@@ -115,11 +115,17 @@ const data = [{
 };
 exports.getMyReservations = async (req, res, next) => {
     const { id } = req.params;
+    console.log(id)
+    const data =[]
+    let result = []
     try {
-        const myBookings = await Booking.find({ guest: id }).then(res => res.forEach(book=>{
+        const myBookings = await Booking.find({ guest: id })
+        
             
-        }));
-        res.send(myBookings);
+           
+   
+       
+        res.send(myBookings)
     } catch (err) {
         next(err);
     }
