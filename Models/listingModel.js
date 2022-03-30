@@ -47,6 +47,9 @@ const listingSchema = new mongoose.Schema({
         ref: "User"
     },
     geo_location:[],
+    property_type:{
+        type: String
+    }
 
 })
 module.exports = mongoose.model("Listing", listingSchema);

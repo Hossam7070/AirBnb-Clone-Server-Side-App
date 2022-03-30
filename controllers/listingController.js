@@ -18,6 +18,7 @@ exports.createListing = async (req, res, next) => {
         guests_included,
         description,
         geo_location,
+        property_type
       } = req.body;
     try {
    const listing = new Listing({
@@ -37,6 +38,7 @@ exports.createListing = async (req, res, next) => {
     description,
     geo_location,
     host,
+    property_type
   })
   const newList = await listing.save();
   res.json(newList);
@@ -63,6 +65,7 @@ exports.editListing = async (req, res, next) => {
         guests_included,
         description,
         geo_location,
+        property_type
     }= req.body
     try {
         const updated = await Listing.findByIdAndUpdate(id,{
@@ -81,6 +84,7 @@ exports.editListing = async (req, res, next) => {
             guests_included,
             description,
             geo_location,
+            property_type,
         })
         res.send(updated)
   } catch (err) {
