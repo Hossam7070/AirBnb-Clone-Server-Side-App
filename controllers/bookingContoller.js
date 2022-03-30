@@ -115,16 +115,8 @@ const data = [{
 };
 exports.getMyReservations = async (req, res, next) => {
     const { id } = req.params;
-    console.log(id)
-    const data =[]
-    let result = []
     try {
         const myBookings = await Booking.find({ guest: id })
-        
-            
-           
-   
-       
         res.send(myBookings)
     } catch (err) {
         next(err);
@@ -179,7 +171,7 @@ exports.getMystats = async (req, res, next) => {
     const tomorrow = startOfTomorrow();
     const { id } = req.params;
     try {
-        const stats = await Booking.find({ user: id })
+        const stats = await Booking.find({ host: id })
             .select("checkIn checkOut property")
             .then((result) =>
                 result.forEach(
