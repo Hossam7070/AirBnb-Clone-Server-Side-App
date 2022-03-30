@@ -1,56 +1,59 @@
 const mongoose = require('mongoose')
 const listingSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
     },
-    city:{
+    city: {
         type: String
     },
-    neighbourhood_cleansed:{
+    neighbourhood_cleansed: {
         type: String
     },
-    number_of_reviews:{
+    number_of_reviews: {
         type: Number
     },
-    summary:{
+    summary: {
         type: String
     },
-    bedrooms:{
+    bedrooms: {
         type: Number
     },
-    bathrooms:{
+    bathrooms: {
         type: Number
     },
-    guests_included:{
+    guests_included: {
         type: Number
     },
-    price:{
+    price: {
         type: Number
     },
-    host_name:{
+    host_name: {
         type: String
     },
-    host_thumbnail_url:{
+    host_thumbnail_url: {
         type: String
     },
-    amenities:{
+    amenities: {
         type: [String]
     },
-    xl_picture_url:{
+    xl_picture_url: {
         type: String
     },
-    description:{
+    description: {
         type: String
     },
-    host :{
-        type : mongoose.Schema.Types.ObjectId,
+    cancellation_policy: {
+        type: String
+    },
+    host: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    geo_location:[],
-    property_type:{
+    geo_location: [],
+    property_type: {
         type: String
     }
-    
+
 
 })
 module.exports = mongoose.model("Listing", listingSchema);
