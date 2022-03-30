@@ -71,6 +71,15 @@ exports.getBookningsByHost = async (req, res, next) => {
         next(err);
     }
 };
+exports.getMyReservations = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const myBookings = await Booking.find({ guest: id });
+        res.send(myBookings);
+    } catch (err) {
+        next(err);
+    }
+};
 exports.getBookningsByProp = async (req, res, next) => {
     const { id } = req.params;
     try {

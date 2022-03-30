@@ -15,6 +15,10 @@ router.route('/:id')
 .get(
     book.approveRequest
 )
+router.route('/my-bookings/:id')
+.get(
+    book.getMyReservations
+)
 .post(
     book.cancelMyBooking
 )
