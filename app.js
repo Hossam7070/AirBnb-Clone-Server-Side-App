@@ -33,13 +33,7 @@ const reviewRouter = require("./routes/reviewRoutes");
 app.use('/user', userRouter);
 app.use("/", propertyRouter);
 
-<<<<<<< HEAD
-app.use('/user', userRouter);
-=======
 
-
-
->>>>>>> dad9ac367cc6a96b71fff5bf514788be4021fa24
 app.use('/report', reportRouter);
 app.use('/message', messageRouter);
 app.use('/conversation', conversationRouter);
