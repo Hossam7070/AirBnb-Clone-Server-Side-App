@@ -86,6 +86,8 @@ exports.editListing = async (req, res, next) => {
             geo_location,
             property_type,
         })
+        const result = await Listing.findById(id)
+        const data = {fields:{result}};
         res.send(updated)
   } catch (err) {
     next(err);
@@ -110,7 +112,8 @@ exports.deleteListing = async (req, res, next) => {
 exports.getAllListings = async (req, res, next) => {
   try {
       const listings = await Listing.find();
-      res.send(listings);
+      const data = {fields:{listings}};
+      res.send(data);
   } catch (err) {
     next(err);
   }
@@ -120,7 +123,8 @@ exports.getListingById = async (req, res, next) => {
     const {id}= req.params;
   try {
       const listing = await Listing.findById(id);
-      res.send(listing);
+      const data = {fields:{listing}};
+      res.send(data);
   } catch (err) {
     next(err);
   }
