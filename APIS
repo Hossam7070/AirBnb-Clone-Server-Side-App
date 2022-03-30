@@ -171,6 +171,32 @@ get user listings
 dashboard :
 
 __________________________________________________________
+listing:=>>>>>
+ http://localhost:4000/list
 
+ post => "http://localhost:4000/list" req.headers= token }
+ ex :req.body= {
+     "name":"country side house",
+        "city":"london",
+        "bathrooms":2,
+        "bedrooms":5,
+        "neighbourhood_cleansed":"hamada",
+        "summary":"good looking property",
+        "number_of_reviews":4,
+        "xl_picture_url":"",
+        "amenities":["wifi","land line"],
+        "host_thumbnail_url":"",
+        "host_name":"host",
+        "price":250,
+        "guests_included":4,
+        "description":"listing disscsas",
+        "geo_location":[31.00,30.00]
+      }
+patch=> "http://localhost:4000/list/:id"    edit listing by id
+    same as craete without token
+delete+> "http://localhost:4000/list/:id" delete 
 
+get "http://localhost:4000/list  get all lists
+get "http://localhost:4000/list/:id"  by list id
+get "http://localhost:4000/list/host/:id"  get listings of host 
  -->
