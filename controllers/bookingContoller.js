@@ -116,7 +116,9 @@ const data = [{
 exports.getMyReservations = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const myBookings = await Booking.find({ guest: id });
+        const myBookings = await Booking.find({ guest: id }).then(res => res.forEach(book=>{
+            
+        }));
         res.send(myBookings);
     } catch (err) {
         next(err);

@@ -101,7 +101,8 @@ console.log(req.user._id)
       username,
       role,
     });
-    res.send(updated);
+    const user = await User.findById(req.user.id);
+    res.send(user);
   } catch (error) {
     next(error);
   }
