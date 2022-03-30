@@ -15,20 +15,20 @@ var areIntervalsOverlapping = require('date-fns/areIntervalsOverlapping')
 var intervalToDuration = require('date-fns/intervalToDuration')
 
 exports.handleConflict = async (req, res, next) => {
-    const { checkOut,checkIn, property } = req.body
-    
+    const { checkOut, checkIn, property } = req.body
+
     try {
         const prop = await Booking.find({ property: property }).then(result => result.forEach(
             booking => {
                 if (
                     areIntervalsOverlapping(
-                        { start:new Date(booking.checkIn), end:new Date(booking.checkOut) },
-                        { start:new Date (checkIn), end:new Date(checkOut)}
+                        { start: new Date(booking.checkIn), end: new Date(booking.checkOut) },
+                        { start: new Date(checkIn), end: new Date(checkOut) }
                     )
                 ) {
                     console.log("hii")
                     throw new Error("intervals overlap")
-                } 
+                }
             }
         ));
 
@@ -41,7 +41,7 @@ exports.handleConflict = async (req, res, next) => {
 }
 
 exports.createBooking = async (req, res, next) => {
-    const { property, host, guest, checkOut ,checkIn} = req.body;
+    const { property, host, guest, checkOut, checkIn } = req.body;
     try {
         const booking = new Booking({
             property,
@@ -75,8 +75,8 @@ exports.getBookningsByHost = async (req, res, next) => {
 };
 exports.getBookningsByHostSumm = async (req, res, next) => {
     const { id } = req.params;
-    const ins =[];
-    
+    const ins = [];
+
     const today = startOfToday();
     try {
         const stats = await Booking.find({ host: id })
@@ -84,31 +84,31 @@ exports.getBookningsByHostSumm = async (req, res, next) => {
             .then((result) =>
                 result.forEach(
                     (status) =>
-                        ins.push({in:status.checkIn,out:status.checkOut})
-                        
+                        ins.push({ in: status.checkIn, out: status.checkOut })
+
                 )
             );
-                     const monthlyBookings= ins.filter(el=>
-                        isWithinInterval(today,{ start:el.in, end:addDays(today,30) })
-                    ).length
-                        let earnings = 0 ;
-                        const earningsMap= ins.map(el=>{
-                         earnings = earnings + intervalToDuration({
-                                start: new Date(el.in),
-                                end: new Date(el.out)
-                              }).days*120
-                        })
-console.log(earnings);
-const data = [{
-    "Earnings in August":earnings,
-     "Overall rating": 4.5 ,
+        const monthlyBookings = ins.filter(el =>
+            isWithinInterval(today, { start: el.in, end: addDays(today, 30) })
+        ).length
+        let earnings = 0;
+        const earningsMap = ins.map(el => {
+            earnings = earnings + intervalToDuration({
+                start: new Date(el.in),
+                end: new Date(el.out)
+            }).days * 120
+        })
+        console.log(earnings);
+        const data = [{
+            "Earnings in August": earnings,
+            "Overall rating": 4.5,
 
-    "30-days bookings":monthlyBookings,
-    "30-day views" :  8
-}]
+            "30-days bookings": monthlyBookings,
+            "30-day views": 8
+        }]
 
-                    res.json(data);
-    
+        res.json(data);
+
     } catch (err) {
         next(err);
     }
@@ -153,7 +153,7 @@ exports.approveRequest = async (req, res, next) => {
         const { id } = req.params;
         const aprroved = "accepted";
         const update = await Booking.findByIdAndUpdate(id, {
-            aprroved:aprroved
+            aprroved: aprroved
         })
         res.send("accepted");
     } catch (err) {
