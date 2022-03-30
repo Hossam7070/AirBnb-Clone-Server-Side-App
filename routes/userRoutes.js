@@ -61,5 +61,10 @@ router.route("/host/data/:id")
 router.route('/host-data/:id').get(
     book.getBookningsByHostSumm
 )
+
+router
+.route('/:id').get(
+    userCtl.getMyDetailsById
+)
 module.exports = router ;
 
