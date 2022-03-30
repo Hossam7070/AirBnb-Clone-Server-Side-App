@@ -1,5 +1,6 @@
 const Booking = require("../Models/bookingModel");
 const Property = require("../Models/propertyModel");
+const Listing = require("../Models/listingModel");
 const isToday = require("date-fns/isToday");
 var isWithinInterval = require("date-fns/isWithinInterval");
 const startOfToday = require("date-fns/startOfToday");
@@ -8,24 +9,24 @@ const isTomorrow = require("date-fns/isTomorrow");
 var startOfTomorrow = require("date-fns/startOfTomorrow");
 var subDays = require("date-fns/subDays");
 var addDays = require("date-fns/addDays");
+var parseISO = require('date-fns/parseISO')
 const dataAnalysis = require("../utilitis/hostDataAnalysis")
 var areIntervalsOverlapping = require('date-fns/areIntervalsOverlapping')
 exports.handleConflict = async (req, res, next) => {
-    const { checkOut, property } = req.body
-    let checkIn = date.now()
+    const { checkOut,checkIn, property } = req.body
+    
     try {
         const prop = await Booking.find({ property: property }).then(result => result.forEach(
             booking => {
                 if (
                     areIntervalsOverlapping(
-                        { start: booking.checkIn, end: booking.checkOut },
-                        { start: checkIn, end: checkOut }
+                        { start:new Date(booking.checkIn), end:new Date(booking.checkOut) },
+                        { start:new Date (checkIn), end:new Date(checkOut)}
                     )
                 ) {
-                    return next()
-                } else {
-                    next("dennied date already been taken")
-                }
+                    console.log("hii")
+                    throw new Error("intervals overlap")
+                } 
             }
         ));
 
@@ -34,10 +35,11 @@ exports.handleConflict = async (req, res, next) => {
 
 
     } catch (err) { next(err); }
+    next();
 }
 
 exports.createBooking = async (req, res, next) => {
-    const { property, host, guest, checkOut } = req.body;
+    const { property, host, guest, checkOut ,checkIn} = req.body;
     try {
         const booking = new Booking({
             property,
@@ -47,7 +49,7 @@ exports.createBooking = async (req, res, next) => {
             checkIn
         });
         const newBooking = await booking.save();
-        res.json(newBooking);
+        res.send(newBooking);
     } catch (err) {
         next(err);
     }
@@ -98,11 +100,11 @@ exports.getMyCurruntBookings = async (req, res, next) => {
 exports.approveRequest = async (req, res, next) => {
     try {
         const { id } = req.params;
-
+        const aprroved = "accepted";
         const update = await Booking.findByIdAndUpdate(id, {
-            approved: "accepted"
+            aprroved:aprroved
         })
-        res.send(update);
+        res.send("accepted");
     } catch (err) {
         next(err);
     }
@@ -160,16 +162,19 @@ exports.getMystats = async (req, res, next) => {
                     checkin: todayCheckins,
                     checkout: todayCheckOuts,
                     trips: todayBooking,
+                    pendingReviews: 1
                 },
                 tomorrow: {
                     checkin: tomorrowsCheckins,
                     checkout: tomorrowsCheckOuts,
                     trips: tomorrowBooking,
+                    pendingReviews: 1
                 },
                 week: {
                     checkin: nextWeekCheckins,
                     checkout: nextWeekCheckOuts,
                     trips: nextWeekBooking,
+                    pendingReviews: 1
                 },
             },
         ];
@@ -203,8 +208,8 @@ exports.occupancyRate = async (req, res, next) => {
                     })
                 )
             );
-        const prop = await Property.find({ owner: id }).count();
-        const props = await Property.find().count();
+        const prop = await Listing.find({ owner: id }).count();
+        const props = await Listing.find().count();
         const result = dataAnalysis.getAnalysis(stat, prop, stats, props)
 
         res.json(result);
@@ -215,10 +220,13 @@ exports.occupancyRate = async (req, res, next) => {
 
 exports.cancelMyBooking = async (req, res, next) => {
     const { id } = req.params;
+    const aprroved = "canceled";
     try {
         const canceled = await Booking.findByIdAndUpdate(id, {
-            approved: "canceled"
+            aprroved: aprroved
         });
+
+        res.send("canceled")
     } catch (e) {
         next(e);
     }
@@ -232,9 +240,9 @@ exports.updateBooking = async (req, res, next) => {
             err.statusCode = 404;
             next(new Error(err));
         }
-        const { property, host, guest, price, approved, checkIn, checkOut } = req.body;
+        const { property, host, guest, approved, checkIn, checkOut } = req.body;
         const updated = await Booking.findByIdAndUpdate(req.params.id,
-            { property, host, guest, price, approved, checkIn, checkOut },
+            { property, host, guest, approved, checkIn, checkOut },
         );
         res.send(updated);
     } catch (error) {
