@@ -128,7 +128,7 @@ exports.getListingById = async (req, res, next) => {
   try {
     const listing = await Listing.findById(id);
     const data = { fields: { listing } };
-    res.send(data);
+    res.send(listing);
   } catch (err) {
     next(err);
   }
