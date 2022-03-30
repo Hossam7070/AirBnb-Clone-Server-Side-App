@@ -21,7 +21,7 @@ const ReportsSchema = new mongoose.Schema({
 
     },
     creationDate: {
-        type: Number,
+        type: Date,
         default: Date.now()
     }
 

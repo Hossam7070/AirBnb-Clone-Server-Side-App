@@ -9,7 +9,7 @@ exports.createConversation = async (req, res, next) => {
 
   try {
     const savedConversation = await newConversation.save();
-    res.json(savedConversation);
+    res.send(savedConversation);
   } catch (err) {
     next(err);
   }
@@ -25,7 +25,7 @@ exports.getConversation = async (req, res, next) => {
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
     });
-    res.json(conversation);
+    res.send(conversation);
   } catch (err) {
     next(err);
   }
@@ -37,7 +37,7 @@ exports.getTwoUsersConversation = async (req, res, next) => {
     const conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
     });
-    res.json(conversation)
+    res.send(conversation)
   } catch (err) {
     next(err);
   }

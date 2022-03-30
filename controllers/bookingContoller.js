@@ -10,30 +10,30 @@ var subDays = require("date-fns/subDays");
 var addDays = require("date-fns/addDays");
 const dataAnalysis = require("../utilitis/hostDataAnalysis")
 var areIntervalsOverlapping = require('date-fns/areIntervalsOverlapping')
-exports.handleConflict =async (req, res, next) => {
-    const {checkOut,property} = req.body
+exports.handleConflict = async (req, res, next) => {
+    const { checkOut, property } = req.body
     let checkIn = date.now()
     try {
-    const prop = await Booking.find({property: property}).then(result => result.forEach(
-        booking => {
-            if(
-                areIntervalsOverlapping(
-                    { start: booking.checkIn, end: booking.checkOut },
-                    { start:checkIn , end: checkOut }
-                )
-            ){
-                return next()
-            }else{
-                next("dennied date already been taken")
+        const prop = await Booking.find({ property: property }).then(result => result.forEach(
+            booking => {
+                if (
+                    areIntervalsOverlapping(
+                        { start: booking.checkIn, end: booking.checkOut },
+                        { start: checkIn, end: checkOut }
+                    )
+                ) {
+                    return next()
+                } else {
+                    next("dennied date already been taken")
+                }
             }
-        }
-    ));
-       
-        
-      
+        ));
 
 
-    }catch(err) {next(err);}
+
+
+
+    } catch (err) { next(err); }
 }
 
 exports.createBooking = async (req, res, next) => {
@@ -82,12 +82,12 @@ exports.getBookningsByProp = async (req, res, next) => {
 
 exports.getMyCurruntBookings = async (req, res, next) => {
     const { id } = req.params;
-    
+
     // console.log(today,tomorrow,nextWeek)
     try {
         const data = await Booking.find({
             host: id,
-            approved:"pending"
+            approved: "pending"
         });
         res.send(data);
     } catch (err) {
@@ -95,15 +95,15 @@ exports.getMyCurruntBookings = async (req, res, next) => {
         next(err);
     }
 };
-exports.approveRequest= async (req, res, next) => {
-    try{
+exports.approveRequest = async (req, res, next) => {
+    try {
         const { id } = req.params;
-        
-        const update = await Booking.findByIdAndUpdate(id,{
-            approved:"accepted"
+
+        const update = await Booking.findByIdAndUpdate(id, {
+            approved: "accepted"
         })
         res.send(update);
-    }catch(err){
+    } catch (err) {
         next(err);
     }
 }
@@ -214,15 +214,15 @@ exports.occupancyRate = async (req, res, next) => {
 };
 
 exports.cancelMyBooking = async (req, res, next) => {
-    const {id}= req.params;
+    const { id } = req.params;
     try {
-        const canceled = await Booking.findByIdAndUpdate(id,{
-            approved:"canceled"
+        const canceled = await Booking.findByIdAndUpdate(id, {
+            approved: "canceled"
         });
-    }catch (e) {
+    } catch (e) {
         next(e);
     }
- };
+};
 
 exports.updateBooking = async (req, res, next) => {
     try {
@@ -232,9 +232,10 @@ exports.updateBooking = async (req, res, next) => {
             err.statusCode = 404;
             next(new Error(err));
         }
-        const updated = await Booking.findByIdAndUpdate(req.params.id, {
-            ...req.body,
-        });
+        const { property, host, guest, price, approved, checkIn, checkOut } = req.body;
+        const updated = await Booking.findByIdAndUpdate(req.params.id,
+            { property, host, guest, price, approved, checkIn, checkOut },
+        );
         res.send(updated);
     } catch (error) {
         error.statusCode = 500;

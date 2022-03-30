@@ -1,8 +1,65 @@
-message
+<!--
+
+new messages
+
+// create message
+post => "http://localhost:4000/messages/"       ==>>  returns message object
+ex:
+{
+        "from": "senderID",
+        "to": "receiverID",
+        "text": "pla pla pla"
+}
+
+//get all sended messages by sender id  => fromID
+get => "http://localhost:4000/messages/sender/:id"    ==>>  returns array of message objects send by user " from "
+
+ex:
+"http://localhost:4000/messages/sender/62438c51eaa5c7cfa20268cb"
+
+//get all recevied messages   => toID
+get => "http://localhost:4000/messages/receiver/:id"   ==>>  returns array of message objects received by user " to "
+
+ex:
+"http://localhost:4000/messages/receiver/62438c51eaa5c7cfa20268cb"
+
+note:  use  getHours(); to get the hour of the message from date
+__________________________________________________________________________________________
+__________________________________________________________________________________________
+
+new review
+
+// create review
+post => "http://localhost:4000/review/"     ==>>  returns review object
+
+ex:
+{
+        "userId": "userID",
+        "propId": "propID",
+        "description": "pla pla pla"
+}
+
+// get all reviews by user id  => userId
+get => "http://localhost:4000/review/user/:id"    ==>>  returns array of review objects by user " userId "
+
+ex: "http://localhost:4000/review/user/62438c51eaa5c7cfa20268cb"
+
+//get all reviews by prop id  => propId
+get => "http://localhost:4000/review/prop/:id"        ==>>  returns array of review objects by property " propId "
+
+ex: "http://localhost:4000/review/prop/62438c51eaa5c7cfa20268cb"
+
+note : use .getLength() to get the length of the array = reviews number
+
+
+
+__________________________________________________________________________________________
+__________________________________________________________________________________________
+old message
 
 // create message
 post => "http://localhost:4000/message/"
-//git all messages for specific conversation
+//get all messages for specific conversation
 get => "http://localhost:4000/message/:conversationId"
 
 _______________________________________________________
@@ -11,9 +68,9 @@ conversation
 
 // create conversation
 post => "http://localhost:4000/conversation/"
-//git all conversations for specific user
+//get all conversations for specific user
 get => "http://localhost:4000/conversation/:userId"
-//git conversation between two users
+//get conversation between two users
 get => "http://localhost:4000/conversation/:firstUserId/:secondUserId"
 
 _______________________________________________________
@@ -22,17 +79,17 @@ report
 
 // create report
 post => "http://localhost:4000/report/"
-//git all reports 
+//get all reports
 get => "http://localhost:4000/report/"
 //main router
-//git a specific type of report for specific target
+//get a specific type of report for specific target
 get => "http://localhost:4000/report/type/:type/target/:id"
-//git a specific type of report for specific reporter
+//get a specific type of report for specific reporter
 get => "http://localhost:4000/report/type/:type/reporter/:id"
 //other routers
-//git all types of reports for specific target
+//get all types of reports for specific target
 get => "http://localhost:4000/report/target/:id"
-//git all types of reports for specific reporter
+//get all types of reports for specific reporter
 get => "http://localhost:4000/report/reporter/:id"
 
 _______________________________________________________
@@ -40,8 +97,8 @@ _______________________________________________________
 booking
 
 http://localhost:4000/booking
-method :post 
-desc: create reservation 
+method :post
+desc: create reservation
 req: req.body ={
             property:id
             host:id
@@ -51,21 +108,21 @@ req: req.body ={
         }
 res : booking
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//git all bookings
+//get all bookings
 get => "http://localhost:4000/booking/"
-//git all bookings for specific property
+//get all bookings for specific property
 get => "http://localhost:4000/booking/list/:Id"
-//git all bookings for specific host
+//get all bookings for specific host
 get => "http://localhost:4000/booking/host/:Id"
 //update booking
 patch => "http://localhost:4000/booking/update-booking/:Id"
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 http://localhost:4000/booking/id
-method : get 
-desc : aprrove booking 
-req : req.params = booking id 
-method : post 
-desc : cancel booking 
+method : get
+desc : aprrove booking
+req : req.params = booking id
+method : post
+desc : cancel booking
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>________________________________________________________
 
 property
@@ -74,22 +131,22 @@ property
 http://localhost:4000/upload/:id
 method : patch
 desc : upload listing imageCover and images
-req:req.params.id = listing id , req.file = {imageCover:onephoto , images : [max 7 ] 
+req:req.params.id = listing id , req.file = {imageCover:onephoto , images : [max 7 ]
 res : listing
 download path :  http://localhost:4000/puplic/img/listing/filename___________________________________________
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 http://localhost:4000/
 post > create new property
-req : req.headers = {autherization : token }, req.body = propety 
+req : req.headers = {autherization : token }, req.body = propety
 
 '/:id
 patch edit  prop
-delete delete  prop 
+delete delete  prop
 user
 http://localhost:4000/user/update-user/:id
-method : patch 
-desc : upload user photo 
-req : req.params = user id ,form-data =>  req.file.photo = uploaded photo 
+method : patch
+desc : upload user photo
+req : req.params = user id ,form-data =>  req.file.photo = uploaded photo
 res : status , user
 download path :  http://localhost:4000/puplic/img/users/filename
 
@@ -101,19 +158,19 @@ post > create new user
 
 user sign in : http://localhost:4000/user/login
 post > login user and get user token
-res : {token} 
+res : {token}
 
 user data : http://localhost:4000/user
 get > req.headers : { autherization : token }
-get user details 
+get user details
 
 user listings :  http://localhost:4000/user/my-prop
 post > req.headers : { autherization : token }
 get user listings
 
-dashboard : 
+dashboard :
 
 __________________________________________________________
 
 
-
+ -->
