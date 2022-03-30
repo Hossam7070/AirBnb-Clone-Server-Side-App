@@ -36,7 +36,7 @@ app.use("/", propertyRouter);
 
 
 
-app.use("/list",listingRouter);
+app.use("/list", listingRouter);
 app.use('/report', reportRouter);
 app.use('/message', messageRouter);
 app.use('/conversation', conversationRouter);

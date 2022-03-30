@@ -103,8 +103,8 @@ req: req.body ={
             property:id
             host:id
             guest:id
-	checkIn:date
-            checkOut,date
+	    checkIn:date
+            checkOut:date
         }
 res : booking
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -194,9 +194,9 @@ listing:=>>>>>
       }
 patch=> "http://localhost:4000/list/:id"    edit listing by id
     same as craete without token
-delete+> "http://localhost:4000/list/:id" delete 
+delete+> "http://localhost:4000/list/:id" delete
 
 get "http://localhost:4000/list  get all lists
 get "http://localhost:4000/list/:id"  by list id
-get "http://localhost:4000/list/host/:id"  get listings of host 
+get "http://localhost:4000/list/host/:id"  get listings of host
  -->
