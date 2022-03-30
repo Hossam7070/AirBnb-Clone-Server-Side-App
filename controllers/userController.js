@@ -162,3 +162,4 @@ exports.getMyDetails = async (req, res, next) => {
     next(error);
   }
 };
+

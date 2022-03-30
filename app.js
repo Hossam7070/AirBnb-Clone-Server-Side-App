@@ -18,7 +18,7 @@ require('dotenv').config();
 const userRouter = require("./routes/userRoutes");
 const propertyRouter = require("./routes/propertyRoutes");
 
-
+const listingRouter = require("./routes/listnigsRoutes");
 const reportRouter = require("./routes/reportRoutes");
 const conversationRouter = require("./routes/conversationsRoutes");
 const messageRouter = require("./routes/messagesRoutes");
@@ -31,7 +31,7 @@ app.use("/", propertyRouter);
 
 
 
-
+app.use("/list",listingRouter);
 app.use('/report', reportRouter);
 app.use('/message', messageRouter);
 app.use('/conversation', conversationRouter);
