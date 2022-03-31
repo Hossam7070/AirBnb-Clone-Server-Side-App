@@ -30,12 +30,12 @@ router.route('/new/:id')
 )
 router.route('/host/:id').get(
     listCtrl.getListingsByhost)
-// ).post(
-//     listCtrl.createListingUpload,
-//     listCtrl.uploadListImages,
-//     listCtrl.resizePropImages,
-//     listCtrl.updateList
-// )
+.post(
+    listCtrl.createListingUpload,
+    listCtrl.uploadListImages,
+    listCtrl.resizePropImages,
+    listCtrl.updateListing
+)
 
 
 module.exports = router;

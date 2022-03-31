@@ -1,4 +1,4 @@
-const Listing = require('../Models/listingModel')
+const Listing = require('../Models/listingModel');
 const multer = require('multer');
 const sharp = require('sharp');
 const multerStorage = multer.memoryStorage();
@@ -191,7 +191,7 @@ const multerFilter = (req, file, cb) => {
   
         req.body.xl_picture_url.push(filename);
   
-        const updated = await Listing.findByIdAndUpdate(req.params.id,{xl_picture_url:req.body.xl_picture_url});
+        const updated = await Listing.findByIdAndUpdate(req.params.listID,{xl_picture_url:req.body.xl_picture_url});
       })
     );
   
@@ -203,6 +203,26 @@ const multerFilter = (req, file, cb) => {
 
   exports.createListingUpload = async (req, res, next) => {
     const { id } = req.params
+console.log(id)
+    try {
+      const listing = new Listing({
+       
+        host: id,
+        
+      })
+      const newList = await listing.save();
+      req.params.listID = newList.id;
+      
+      next()
+      
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  exports.updateListing = async (req, res, next) => {
+    const { listID } = req.params;
+    const result = JSON.parse(req.body.data)
     const {
       name,
       city,
@@ -211,7 +231,7 @@ const multerFilter = (req, file, cb) => {
       neighbourhood_cleansed,
       summary,
       number_of_reviews,
-      xl_picture_url,
+     
       amenities,
       host_thumbnail_url,
       host_name,
@@ -221,9 +241,9 @@ const multerFilter = (req, file, cb) => {
       cancellation_policy,
       geo_location,
       property_type
-    } = req.body;
+    } = result
     try {
-      const listing = new Listing({
+      const updated = await Listing.findByIdAndUpdate(listID, {
         name,
         city,
         bathrooms,
@@ -231,23 +251,20 @@ const multerFilter = (req, file, cb) => {
         neighbourhood_cleansed,
         summary,
         number_of_reviews,
-        xl_picture_url,
+      
         amenities,
         host_thumbnail_url,
         host_name,
         price,
         guests_included,
-        cancellation_policy,
         description,
+        cancellation_policy,
         geo_location,
-        host: id,
-        property_type
+        property_type,
       })
-      const newList = await listing.save();
-      req.params.listID = newList._id;
-      console.log()
-      next()
-      
+      const result = await Listing.findById(listID)
+     
+      res.send(result)
     } catch (err) {
       next(err);
     }
