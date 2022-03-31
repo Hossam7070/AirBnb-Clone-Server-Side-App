@@ -131,8 +131,11 @@ exports.getListingById = async (req, res, next) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id);
-    const data = { fields: { listing } };
+   if(!listing) {
+    next(new Error('listing not found'));
+   }else{
     res.send(listing);
+   }
   } catch (err) {
     next(err);
   }

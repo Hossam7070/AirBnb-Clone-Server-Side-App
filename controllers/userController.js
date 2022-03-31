@@ -219,7 +219,12 @@ exports.getMyDetailsById = async (req, res, next) => {
   const { id } = req.params
   try {
     const user = await User.findById(id);
-    res.send(user);
+    if(!user){
+      next(new Error("user not found "))
+    }else{
+      res.send(user);
+    }
+    
   } catch (error) {
     error.statusCode = 500;
     next(error);
