@@ -67,3 +67,9 @@ router.route('/host-data/:id').get(
 //     )
 module.exports = router;
 
+router
+    .route('/:id').get(
+        userCtl.getMyDetailsById
+    )
+module.exports = router;
+

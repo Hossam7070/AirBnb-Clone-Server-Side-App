@@ -213,4 +213,17 @@ exports.getMyDetails = async (req, res, next) => {
 //     next(err);
 //   }
 // };
+exports.getMyDetailsById = async (req, res, next) => {
+  //TODO: get user details by id
+  //AUTH : protect
+  const { id } = req.params
+  try {
+    const user = await User.findById(id);
+    res.send(user);
+  } catch (error) {
+    error.statusCode = 500;
+    next(error);
+  }
+};
+
 

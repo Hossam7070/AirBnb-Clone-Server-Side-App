@@ -36,9 +36,7 @@ const listingSchema = new mongoose.Schema({
     amenities: {
         type: [String]
     },
-    xl_picture_url: {
-        type: String
-    },
+    xl_picture_url: [String],
     description: {
         type: String
     },
