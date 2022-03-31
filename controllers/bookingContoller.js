@@ -110,6 +110,8 @@ exports.getBookningsByHostSumm = async (req, res, next) => {
         res.json(data);
 
     } catch (err) {
+        err.statusCode=500;
+        err.message="user or data not found"
         next(err);
     }
 };
