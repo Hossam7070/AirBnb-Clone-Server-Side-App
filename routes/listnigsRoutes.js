@@ -4,11 +4,12 @@ const express = require('express')
 const router = express.Router();
 
 router.route('/').post(
-    auth.protect,
+    
     listCtrl.createListing
 ).get(
     listCtrl.getAllListings
 )
+
 router.route('/:id').patch(
     auth.protect,
     listCtrl.editListing
@@ -29,6 +30,12 @@ router.route('/new/:id')
 )
 router.route('/host/:id').get(
     listCtrl.getListingsByhost
+).post(
+    
+    listCtrl.createListingUpload,
+    listCtrl.uploadListImages,
+    listCtrl.resizePropImages,
+    listCtrl.updateList
 )
 
 
