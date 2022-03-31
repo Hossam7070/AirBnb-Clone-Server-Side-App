@@ -17,7 +17,12 @@ router.route('/:id').patch(
 ).delete(
     listCtrl.deleteListing
 )
-
+// router.route('/upload/:id')
+// .patch(
+//     listCtrl.uploadListImages,
+//     listCtrl.resizePropImages,
+//     listCtrl.getListingById
+// )
 router.route('/new/:id')
 .post(
     listCtrl.createListing
@@ -25,4 +30,6 @@ router.route('/new/:id')
 router.route('/host/:id').get(
     listCtrl.getListingsByhost
 )
+
+
 module.exports = router;
