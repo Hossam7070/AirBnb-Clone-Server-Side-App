@@ -29,14 +29,13 @@ router.route('/new/:id')
     listCtrl.createListing
 )
 router.route('/host/:id').get(
-    listCtrl.getListingsByhost
-).post(
-    
-    listCtrl.createListingUpload,
-    listCtrl.uploadListImages,
-    listCtrl.resizePropImages,
-    listCtrl.updateList
-)
+    listCtrl.getListingsByhost)
+// ).post(
+//     listCtrl.createListingUpload,
+//     listCtrl.uploadListImages,
+//     listCtrl.resizePropImages,
+//     listCtrl.updateList
+// )
 
 
 module.exports = router;
