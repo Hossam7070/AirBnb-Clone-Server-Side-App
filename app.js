@@ -7,11 +7,10 @@ const cors = require("cors");
 app.use(cors());
 const path = require('path');
 
-app.use(express.static(__dirname + '/public'));
-
-const bodyParser = require('body-parser');
+app.use(express.static('public'));
 
 
+app.use('/puplic', express.static('public'));
 const port = 4000;
 
 require('dotenv').config();
@@ -27,6 +26,7 @@ const bookingRouter = require("./routes/bookingRoutes");
 //new
 const messagesRouter = require("./routes/messagessRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
+
 
 
 

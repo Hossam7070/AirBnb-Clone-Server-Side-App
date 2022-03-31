@@ -17,12 +17,12 @@ router.route('/:id').patch(
 ).delete(
     listCtrl.deleteListing
 )
-// router.route('/upload/:id')
-// .patch(
-//     listCtrl.uploadListImages,
-//     listCtrl.resizePropImages,
-//     listCtrl.getListingById
-// )
+router.route('/upload/:id')
+.patch(
+    listCtrl.uploadListImages,
+    listCtrl.resizePropImages,
+    listCtrl.getListingById
+)
 router.route('/new/:id')
 .post(
     listCtrl.createListing

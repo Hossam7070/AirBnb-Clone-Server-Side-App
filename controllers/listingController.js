@@ -1,7 +1,8 @@
 const Listing = require('../Models/listingModel')
-// const sharp = require('sharp');
-// const multerStorage = multer.memoryStorage();
-// const multer = require('multer');
+const multer = require('multer');
+const sharp = require('sharp');
+const multerStorage = multer.memoryStorage();
+
 
 exports.createListing = async (req, res, next) => {
   const { id } = req.params
@@ -148,49 +149,49 @@ exports.getListingsByhost = async (req, res, next) => {
 };
 
 
-// const multerFilter = (req, file, cb) => {
-//     if (file.mimetype.startsWith('image')) {
-//       cb(null, true);
-//     } else {
-//       cb(new Error('Not an image! Please upload only images'));
-//     }
-//   };
-//   const upload = multer({
-//     storage: multerStorage,
-//     fileFilter: multerFilter
-//   });
-//   exports.uploadListImages = upload.fields([
+const multerFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Not an image! Please upload only images'));
+    }
+  };
+  const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter
+  });
+  exports.uploadListImages = upload.fields([
     
-//     { name: 'xl_picture_url', maxCount: 7 }
-//   ]);
-//   exports.resizePropImages = async (req, res, next) => {
-//     if (!req.files.images) return next();
+    { name: 'xl_picture_url', maxCount: 7 }
+  ]);
+  exports.resizePropImages = async (req, res, next) => {
+    if (!req.files.xl_picture_url) return next();
   
-//     // 1) Cover image
-//     req.body.imageCover = `listing-${req.params.id}-${Date.now()}-cover.jpeg`;
-//     try{
+   
+   
+    try{
   
-//     // 2) Images
-//     req.body.xl_picture_url = [];
+    // 2) Images
+    req.body.xl_picture_url = [];
   
-//     await Promise.all(
-//       req.files.images.map(async (file, i) => {
-//         const filename = `listing-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+    await Promise.all(
+      req.files.xl_picture_url.map(async (file, i) => {
+        const filename = `listing-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
   
-//         await sharp(file.buffer)
-//           .resize(2000, 1333)
-//           .toFormat('jpeg')
-//           .jpeg({ quality: 90 })
-//           .toFile(`public/${filename}`);
+        await sharp(file.buffer)
+          .resize(2000, 1333)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(`public/${filename}`);
   
-//         req.body.xl_picture_url.push(filename);
+        req.body.xl_picture_url.push(filename);
   
-//         const updated = await Listing.findByIdAndUpdate(req.params.id,{xl_picture_url:req.body.xl_picture_url});
-//       })
-//     );
+        const updated = await Listing.findByIdAndUpdate(req.params.id,{xl_picture_url:req.body.xl_picture_url});
+      })
+    );
   
-//     next();
-//     }catch(err) {
-//       next(err);
-//     }
-//   };
+    next();
+    }catch(err) {
+      next(err);
+    }
+  };
