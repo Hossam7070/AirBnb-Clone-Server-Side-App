@@ -137,6 +137,8 @@ exports.getListingById = async (req, res, next) => {
     res.send(listing);
    }
   } catch (err) {
+    err.statusCode=404
+    err.message="not found"
     next(err);
   }
 };
