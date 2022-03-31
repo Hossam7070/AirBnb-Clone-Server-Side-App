@@ -200,3 +200,56 @@ const multerFilter = (req, file, cb) => {
       next(err);
     }
   };
+
+  exports.createListingUpload = async (req, res, next) => {
+    const { id } = req.params
+    const {
+      name,
+      city,
+      bathrooms,
+      bedrooms,
+      neighbourhood_cleansed,
+      summary,
+      number_of_reviews,
+      xl_picture_url,
+      amenities,
+      host_thumbnail_url,
+      host_name,
+      price,
+      guests_included,
+      description,
+      cancellation_policy,
+      geo_location,
+      property_type
+    } = req.body;
+    try {
+      const listing = new Listing({
+        name,
+        city,
+        bathrooms,
+        bedrooms,
+        neighbourhood_cleansed,
+        summary,
+        number_of_reviews,
+        xl_picture_url,
+        amenities,
+        host_thumbnail_url,
+        host_name,
+        price,
+        guests_included,
+        cancellation_policy,
+        description,
+        geo_location,
+        host: id,
+        property_type
+      })
+      const newList = await listing.save();
+      req.params.listID = newList._id;
+      console.log()
+      next()
+      
+    } catch (err) {
+      next(err);
+    }
+  };
+
