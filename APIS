@@ -24,6 +24,9 @@ ex:
 "http://localhost:4000/messages/receiver/62438c51eaa5c7cfa20268cb"
 
 note:  use  getHours(); to get the hour of the message from date
+
+host => 622098a84f93748a635ffde2
+user => 6235c03c0bdff8ed407d0f8a
 __________________________________________________________________________________________
 __________________________________________________________________________________________
 
@@ -36,6 +39,7 @@ ex:
 {
         "userId": "userID",
         "propId": "propID",
+        "rate": " 1 or 2 or 3 or 4 or 5",
         "description": "pla pla pla"
 }
 
@@ -51,6 +55,8 @@ ex: "http://localhost:4000/review/prop/62438c51eaa5c7cfa20268cb"
 
 note : use .getLength() to get the length of the array = reviews number
 
+//get prop rate
+get => "http://localhost:4000/review/prop/rate/:id"    ==>>  returns the rate of the property
 
 
 __________________________________________________________________________________________

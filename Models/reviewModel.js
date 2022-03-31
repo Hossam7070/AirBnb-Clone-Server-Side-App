@@ -13,6 +13,11 @@ const ReviewSchema = new mongoose.Schema({
         type: String,
         required: [true, 'You must provide the description']
     },
+    rate: {
+        type: Number,
+        enum: [1, 2, 3, 4, 5],
+        default: 1
+    },
     date: {
         type: Date,
         default: Date.now()

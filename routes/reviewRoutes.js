@@ -25,5 +25,11 @@ router.route("/prop/:Id")
         review.getAllPropReviews
     )
 
+//git prop rate
+router.route("/prop/rate/:Id")
+    .get(
+        review.propRate
+    )
+
 
 module.exports = router;

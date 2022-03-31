@@ -1,8 +1,8 @@
 const Review = require("../Models/reviewModel");
 
 exports.createReview = async (req, res, next) => {
-    const { userId, propId, description } = req.body;
-    const newReview = new Review({ userId, propId, description });
+    const { userId, propId, description, rate } = req.body;
+    const newReview = new Review({ userId, propId, description, rate });
     try {
         const savedReview = await newReview.save();
         res.send(savedReview);
@@ -39,3 +39,18 @@ exports.getAllReviews = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.propRate = async (req, res, next) => {
+    try {
+        const propReviews = await Review.find({ propId: req.params.Id });
+        const propRates = propReviews.reduce((acc, curr) => {
+            return acc + curr.rate;
+        }, 0);
+        const rate = propRates / propReviews.length || 1;
+        res.json(rate);
+
+    } catch (err) {
+        next(err);
+    }
+};
+
